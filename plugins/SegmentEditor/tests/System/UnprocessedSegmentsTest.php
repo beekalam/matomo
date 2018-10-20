@@ -36,6 +36,8 @@ class UnprocessedSegmentsTest extends IntegrationTestCase
     {
         $idSegment = API::getInstance()->add('testsegment', self::TEST_SEGMENT, self::$fixture->idSite, $autoArchive = true);
 
+        print_r(\Piwik\Db::fetchAll("SELECT * FROM " . Common::prefixTable('log_visit')));
+
         $storedSegment = API::getInstance()->get($idSegment);
         $this->assertNotEmpty($storedSegment);
 /*
