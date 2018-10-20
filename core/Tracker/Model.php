@@ -277,7 +277,7 @@ class Model
         $fields = implode(", ", $fields);
         $values = Common::getSqlStringFieldsArray($visit);
         $table  = Common::prefixTable('log_visit');
-print ($visit['visit_total_time'])."\n";
+
         $sql  = "INSERT INTO $table ($fields) VALUES ($values)";
         $bind = array_values($visit);
 
@@ -290,7 +290,7 @@ print ($visit['visit_total_time'])."\n";
     public function updateVisit($idSite, $idVisit, $valuesToUpdate)
     {
         list($updateParts, $sqlBind) = $this->fieldsToQuery($valuesToUpdate);
-
+        print "update: ".(@$valuesToUpdate['visit_total_time'])."\n";
         $parts = implode($updateParts, ', ');
         $table = Common::prefixTable('log_visit');
 
