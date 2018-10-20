@@ -291,7 +291,7 @@ class Model
     {
         list($updateParts, $sqlBind) = $this->fieldsToQuery($valuesToUpdate);
         print "update: ".(@$valuesToUpdate['visit_total_time'])."\n";
-        print \Piwik\Db::fetchOne("SELECT visit_total_time FROM " . Common::prefixTable('log_visit') . " WHERE idvisit = ?", [$idVisit])."\n";
+        print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
         $parts = implode($updateParts, ', ');
         $table = Common::prefixTable('log_visit');
 
@@ -309,8 +309,8 @@ class Model
             Common::printDebug("$sqlQuery --- ");
             Common::printDebug($sqlBind);
         }
-        print \Piwik\Db::fetchOne("SELECT visit_total_time FROM " . Common::prefixTable('log_visit') . " WHERE idvisit = ?", [$idVisit])."\n";
-
+        print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
+print "done update\n";
         return $wasInserted;
     }
 

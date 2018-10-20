@@ -188,6 +188,8 @@ class OneVisitorTwoVisits extends Fixture
 
         // -
         // End of first visit: 24min
+        print "end first\n";
+        print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
 
         // Create Goal 2: Matching on URL
         if (!self::goalExists($idSite, $idGoal = 2)) {
@@ -207,6 +209,8 @@ class OneVisitorTwoVisits extends Fixture
         self::checkResponse($t->doTrackPageView('Checkout/Purchasing...'));
         // -
         // End of second visit
+print "end second\n";
+        print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
     }
 
     /**
