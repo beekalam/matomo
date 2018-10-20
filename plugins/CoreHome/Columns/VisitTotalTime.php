@@ -32,7 +32,9 @@ class VisitTotalTime extends VisitDimension
     public function onNewVisit(Request $request, Visitor $visitor, $action)
     {
         $totalTime = Config::getInstance()->Tracker['default_time_one_page_visit'];
+        print "new visit: $totalTime\n";
         $totalTime = $this->cleanupVisitTotalTime($totalTime);
+        print "cleaned: $totalTime\n";
 
         return $totalTime;
     }

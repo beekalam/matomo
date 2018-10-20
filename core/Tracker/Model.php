@@ -277,7 +277,7 @@ class Model
         $fields = implode(", ", $fields);
         $values = Common::getSqlStringFieldsArray($visit);
         $table  = Common::prefixTable('log_visit');
-
+print ($visit['visit_total_time'])."\n";
         $sql  = "INSERT INTO $table ($fields) VALUES ($values)";
         $bind = array_values($visit);
 
