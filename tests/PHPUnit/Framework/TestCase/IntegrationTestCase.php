@@ -59,9 +59,12 @@ abstract class IntegrationTestCase extends SystemTestCase
     {
         static::configureFixture(static::$fixture);
         parent::setUpBeforeClass();
+        print "setupBeforeClass 0: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
         static::beforeTableDataCached();
+        print "setupBeforeClass 1: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
 
         self::$tableData = self::getDbTablesWithData();
+        print "setupBeforeClass 2: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
     }
 
     public static function tearDownAfterClass()
@@ -74,7 +77,9 @@ abstract class IntegrationTestCase extends SystemTestCase
      */
     public function setUp()
     {
+        print "setup 0: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
         parent::setUp();
+        print "setup 1: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
 
         static::$fixture->extraDefinitions = array_merge(static::provideContainerConfigBeforeClass(), $this->provideContainerConfig());
         static::$fixture->createEnvironmentInstance();
@@ -91,6 +96,7 @@ abstract class IntegrationTestCase extends SystemTestCase
         PiwikCache::getEagerCache()->flushAll();
         PiwikCache::getTransientCache()->flushAll();
         MenuAbstract::clearMenus();
+        print "setup 2: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
     }
 
     /**

@@ -34,11 +34,7 @@ class UnprocessedSegmentsTest extends IntegrationTestCase
 
     public function test_apiOutput_whenPreprocessedSegmentUsed_WithBrowserArchivingDisabled()
     {
-        print "in test 0: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
-
         $idSegment = API::getInstance()->add('testsegment', self::TEST_SEGMENT, self::$fixture->idSite, $autoArchive = true);
-
-        print "in test 1: ".print_r(\Piwik\Db::fetchAll("SELECT visit_total_time FROM " . Common::prefixTable('log_visit')));
 
         $storedSegment = API::getInstance()->get($idSegment);
         $this->assertNotEmpty($storedSegment);
