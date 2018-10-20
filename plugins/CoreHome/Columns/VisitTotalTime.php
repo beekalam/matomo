@@ -46,9 +46,11 @@ class VisitTotalTime extends VisitDimension
     public function onExistingVisit(Request $request, Visitor $visitor, $action)
     {
         $firstActionTime = $visitor->getVisitorColumn('visit_first_action_time');
-
+print "firstActionTime: $firstActionTime\n";
         $totalTime = 1 + $request->getCurrentTimestamp() - $firstActionTime;
+        print "totalTime update :$totalTime\n";
         $totalTime = $this->cleanupVisitTotalTime($totalTime);
+        print "clean total time: $totalTime\n";
 
         return $totalTime;
     }
@@ -62,17 +64,20 @@ class VisitTotalTime extends VisitDimension
     public function onConvertedVisit(Request $request, Visitor $visitor, $action)
     {
         if (!$visitor->isVisitorKnown()) {
+            print "not known\n";
             return false;
         }
 
         $totalTime = $visitor->getVisitorColumn('visit_total_time');
-
+print "total time: $totalTime\n";
         // If a pageview and goal conversion in the same second, with previously a goal conversion recorded
         // the request would not "update" the row since all values are the same as previous
         // therefore the request below throws exception, instead we make sure the UPDATE will affect the row
         $totalTime = $totalTime + $request->getParam('idgoal');
+        print "total time 2: $totalTime\n";
         // +2 to offset idgoal=-1 and idgoal=0
         $totalTime = $totalTime + 2;
+        print "total time 3: $totalTime\n";
 
         return $this->cleanupVisitTotalTime($totalTime);
     }
